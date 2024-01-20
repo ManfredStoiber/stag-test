@@ -283,14 +283,16 @@ bool QuadDetector::checkIfQuadIsSimple(const vector<Corner> &corners)
 	Point2d vec12(corners[1].loc.x - corners[0].loc.x, corners[1].loc.y - corners[0].loc.y);
 	Point2d vec14(corners[3].loc.x - corners[0].loc.x, corners[3].loc.y - corners[0].loc.y);
 
-	if (crossProduct(vec13, vec12) * crossProduct(vec13, vec14) >= 0)
+	double product = crossProduct(vec13, vec12) * crossProduct(vec13, vec14);
+	if (isnan(product) || product >= 0)
 		return false;
 
 	Point2d vec24(corners[3].loc.x - corners[1].loc.x, corners[3].loc.y - corners[1].loc.y);
 	Point2d vec21(corners[0].loc.x - corners[1].loc.x, corners[0].loc.y - corners[1].loc.y);
 	Point2d vec23(corners[2].loc.x - corners[1].loc.x, corners[2].loc.y - corners[1].loc.y);
 
-	if (crossProduct(vec24, vec21) * crossProduct(vec24, vec23) >= 0)
+	product = crossProduct(vec24, vec21) * crossProduct(vec24, vec23);
+	if (isnan(product) || product >= 0)
 		return false;
 
 	return true;
